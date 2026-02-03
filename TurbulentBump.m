@@ -32,7 +32,8 @@
 close all
 %clear all
 %% DATA
-load("D:\TurbulentBumpSecondVersionmfmod\RerampBoundTurbItNum_50000.mat")
+%PRELOAD DATA
+%load("D:\TurbulentBumpSecondVersionmfmod\RerampBoundTurbItNum_50000.mat")
 %load("D:\TurbulentBumpSecondVersionmfmod\fourthSmoothingRe2M_mesh9_ItNum_5000.mat")
 %load("D:\TurbulentBumpSecondVersionmfmod\finalConvergedRe3e6.mat")
 %load("AcelConveg.mat")
@@ -50,7 +51,7 @@ load("D:\TurbulentBumpSecondVersionmfmod\RerampBoundTurbItNum_50000.mat")
 rho=1.205;                    %Density (Kg/m3)
 mu=1.802e-5;                  %Dynamic Viscosity (N*s/m^2)
 nu = mu/rho;                  %Kinematic Viscosity (m/s^2)
-%u0=0.045;                    %Velocity at the inlet (m/s) 
+u0=0.045;                    %Velocity at the inlet (m/s) 
 p0=1;                         %Outlet pressure (Prescribed)
 
 %Geometrical parameters___________________________________________________*
@@ -83,10 +84,10 @@ cw3=2;
 %run MeshBump.m  to generate the mesh
 %Geometry defined in MeshBump.m
 %Comment once mesh generated if re-run
-run("meshbump10_new_modified.m")
+%run("meshbump10_new_modified.m")
 %run("meshbump6_new_modified.m")
 %run("meshbump5_new_modified.m")
-%run("meshbump4_new_modified.m")
+run("meshbump4_new_modified.m")
 %run("meshbump2_new_modified.m")
 %run("meshbump2_new.m")
 %run("meshbump2.m")
@@ -649,11 +650,11 @@ while convergedFlg==false
 
     %---------------------    III RAMPING   ------------------------------
     
-    
+    %TRIGGER CONDITIONS
     if iterations_cont>=iterations_trig
         %(iterations_cont>=iterations_trig && iterations_cont <20000) || (iterations_cont>30000) % Trigger new condition at certain iteration
         
-        
+        %RAMPING BLOCK
         if ramping_cont<ramping_steps%Stop rampig crteria
             if mod(iterations_cont,ramping_spacing) == 0
                     ramping_cont=ramping_cont+1;
@@ -667,7 +668,7 @@ while convergedFlg==false
 
         %}
 
-        
+        %BLOCK FOR SAVE SOLUTION EACH CERTAIN ITERATIONS
         if mod(iterations_cont,5000) == 0
             file_var_name="ReSolveBoundTurbItNum_" + string(iterations_cont) + ".mat";
             save(file_var_name)
