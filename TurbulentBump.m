@@ -78,7 +78,7 @@ cw2=0.3;
 cw3=2;
 
 %% MESH 
-%{
+
 %Mesh generation _________________________________________________________*
 %run MeshBump.m  to generate the mesh
 %Geometry defined in MeshBump.m
